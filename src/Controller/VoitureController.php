@@ -6,14 +6,11 @@ use App\Entity\Voiture;
 use App\Form\VoitureType;
 use App\manager\VoitureManager;
 use App\Repository\VoitureRepository;
-use App\Service\FileService;
-use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/voiture')]
 class VoitureController extends AbstractController
@@ -34,9 +31,23 @@ class VoitureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
-            $voitureManager->manageCar($voiture, $form);
-            return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
+            try
+            {
+                $voitureManager->manageCar($voiture, $form);
+                $this->addFlash(
+                   'success',
+                   'Enregistrement avec succès!!'
+                );
+                return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
+            }
+            catch(\Exception $e) {
+                throw new Exception($e->getMessage());
+                $this->addFlash(
+                    'error',
+                    'Echec d\'enregistrement!!'
+                 );
+                return $this->redirectToRoute('app_voiture_manage', ['id'=> $voiture->getId()], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('voiture/manage.html.twig', [

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,6 +25,7 @@ class FileService
             );
             return $newFilename;
         } catch (FileException $e) {
+            throw new Exception($e->getMessage());
         }
     }
 }

@@ -4,7 +4,11 @@
 
 {% block body %}
     <h1 class="title">Liste de voitures</h1>
-
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div>
         <table class="table">
             <thead class="header-table">
