@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture{% endblock %}
+
+{% block body %}
+    <h1 class="title">Voiture numéro: {{ voiture.id }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ voiture.id }}</td>
+            </tr>
+            <tr>
+                <th>Couverture</th>
+                <td>
+                   <img src="{{ asset('uploads/couvertures/'~ voiture.couverture) }}" alt="couverture" width="50"/> 
+                </td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ voiture.marque }}</td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>{{ voiture.couleur }}</td>
+            </tr>
+            <tr>
+                <th>Forme</th>
+                <td>{{ voiture.forme }}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ voiture.matricule }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary">
+        <a class="link" href="{{ path('app_voiture_index') }}">< retour à la liste</a>
+    </button>
+{% endblock %}

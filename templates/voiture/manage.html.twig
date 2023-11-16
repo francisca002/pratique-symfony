@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer Voiture{% endblock %}
+
+{% block body %}
+    <h1 class="title">{{ voiture.id ? 'Modifier infos d\'une voiture'  : 'Ajouter une nouvelle voiture'}}</h1>
+    <div class="col-md-4 m-auto">
+        {{ include('voiture/_form.html.twig') }}
+    </div>
+    <button class="btn btn-primary offset-md-1">
+        <a class="link" href="{{ path('app_voiture_index') }}">< retour à la liste</a>
+    </button>
+{% endblock %}

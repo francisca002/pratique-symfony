@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture index{% endblock %}
+
+{% block body %}
+    <h1 class="title">Liste de voitures</h1>
+
+    <div>
+        <table class="table">
+            <thead class="header-table">
+                <tr>
+                    <th>Id</th>
+                    <th>Marque</th>
+                    <th>Couleur</th>
+                    <th>Forme</th>
+                    <th>Matricule</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for voiture in voitures %}
+                <tr>
+                    <td>{{ voiture.id }}</td>
+                    <td>{{ voiture.marque }}</td>
+                    <td>{{ voiture.couleur }}</td>
+                    <td>{{ voiture.forme }}</td>
+                    <td>{{ voiture.matricule }}</td>
+                    <td>
+                        <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}"><i class="fas fa-eye text-primary"></i></a>
+                        <a class="link" href="{{ path('app_voiture_manage', {'id': voiture.id}) }}"><i class="fas fa-pencil-alt text-success"></i></a>
+                        <a class="link" href="{{ path('app_voiture_delete', {'id': voiture.id}) }}"><i class="fas fa-trash text-danger"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Liste vide !!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+    <button class="btn btn-primary">
+        <a class="link" href="{{ path('app_voiture_manage') }}">Ajouter voiture</a>
+    </button>
+{% endblock %}
